@@ -23,34 +23,49 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.api.events;
+package org.geysermc.api;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.geysermc.api.command.CommandSender;
+import org.geysermc.api.session.AuthData;
+import org.geysermc.api.window.FormWindow;
 
-/**
- * The annotation to put on all methods that are events.
- */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface EventHandler {
+public interface Player extends CommandSender {
 
     /**
-     * @return the order to execute events.
-     * @see EventPriority
+     * Connects the player to the remote server
+     *
+     * @param remoteServer the remote server to connect to
      */
-    EventPriority value() default EventPriority.NORMAL;
+    void connect(RemoteServer remoteServer);
 
     /**
-     * When an eventHandler should be run.
-     * The names mostly explain.
+     * Disconnect the player for the specified reason
+     *
+     * @param reason the reason to disconnect the player for
      */
-    enum EventPriority {
-        FIRST,
-        NORMAL,
-        LAST,
-        READ_ONLY;
-    }
+    void disconnect(String reason);
+
+    /**
+     * Returns the authentication data of the player. This is not the
+     * player's Minecraft credentials; it's simply what is given to the server
+     * (Name, UUID, Xbox UUID) to verify the player can/actually exists.
+     *
+     * @return the authentication data of the player
+     */
+    AuthData getAuthenticationData();
+
+    /**
+     * Sends a form window
+     *
+     * @param window the window form to send
+     */
+    void sendForm(FormWindow window);
+
+    /**
+     * Sends a form window with the given ID
+     *
+     * @param window the window to send
+     * @param id the id of the window
+     */
+    void sendForm(FormWindow window, int id);
 }
