@@ -29,6 +29,8 @@ import org.geysermc.api.command.CommandMap;
 import org.geysermc.api.logger.Logger;
 import org.geysermc.api.plugin.PluginManager;
 
+import java.util.concurrent.ScheduledExecutorService;
+
 public interface Connector {
 
     /**
@@ -51,6 +53,13 @@ public interface Connector {
      * @return the plugin manager
      */
     PluginManager getPluginManager();
+
+    /**
+     * Returns the general thread pool
+     *
+     * @return the general thread pool
+     */
+    ScheduledExecutorService getGeneralThreadPool();
 
     /**
      * Shuts down the connector
