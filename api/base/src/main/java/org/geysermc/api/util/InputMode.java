@@ -23,13 +23,27 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.api.util;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
-/**
- * Represents a player connection used in Geyser.
- */
-public interface GeyserConnection extends Connection, CommandSource {
+public enum InputMode {
+    UNKNOWN,
+    KEYBOARD_MOUSE,
+    TOUCH,
+    CONTROLLER,
+    VR;
+
+    private static final InputMode[] VALUES = values();
+
+    /**
+     * Get the InputMode from the identifier.
+     *
+     * @param id the InputMode identifier
+     * @return The InputMode or {@link #UNKNOWN} if the mode wasn't found
+     */
+    @NonNull
+    public static InputMode fromId(int id) {
+        return VALUES.length > id ? VALUES[id] : VALUES[0];
+    }
 }

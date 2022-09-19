@@ -23,13 +23,29 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.geyser.api.event.connection;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.geysermc.event.Event;
+import org.geysermc.geyser.api.connection.GeyserConnection;
 
 /**
- * Represents a player connection used in Geyser.
+ * An event that contains a {@link GeyserConnection}.
  */
-public interface GeyserConnection extends Connection, CommandSource {
+public abstract class ConnectionEvent implements Event {
+    private final GeyserConnection connection;
+
+    public ConnectionEvent(@NonNull GeyserConnection connection) {
+        this.connection = connection;
+    }
+
+    /**
+     * Gets the {@link GeyserConnection}.
+     *
+     * @return the connection
+     */
+    @NonNull
+    public GeyserConnection connection() {
+        return this.connection;
+    }
 }

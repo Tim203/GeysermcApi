@@ -23,13 +23,19 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.geyser.api.event;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.geysermc.event.Event;
+import org.geysermc.geyser.api.extension.Extension;
+
+import java.util.Set;
 
 /**
- * Represents a player connection used in Geyser.
+ * An {@link EventBus} with additional methods that implicitly
+ * set the extension instance.
  */
-public interface GeyserConnection extends Connection, CommandSource {
+public interface ExtensionEventBus extends org.geysermc.event.bus.EventBus<Event, EventSubscriber<Extension, ? extends Event>> {
+    @Override
+    @NonNull <T extends Event> Set<? extends EventSubscriber<EventRegistrar, T>> subscribers(@NonNull Class<T> eventClass);
 }

@@ -23,13 +23,29 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.geyser.api.item.custom;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * Represents a player connection used in Geyser.
+ * This class is used to store the render offsets of custom items.
  */
-public interface GeyserConnection extends Connection, CommandSource {
+public record CustomRenderOffsets(@Nullable Hand mainHand, @Nullable Hand offhand) {
+    /**
+     * The hand that is used for the offset.
+     */
+    public record Hand(@Nullable Offset firstPerson, @Nullable Offset thirdPerson) {
+    }
+
+    /**
+     * The offset of the item.
+     */
+    public record Offset(@Nullable OffsetXYZ position, @Nullable OffsetXYZ rotation, @Nullable OffsetXYZ scale) {
+    }
+
+    /**
+     * X, Y and Z positions for the offset.
+     */
+    public record OffsetXYZ(float x, float y, float z) {
+    }
 }

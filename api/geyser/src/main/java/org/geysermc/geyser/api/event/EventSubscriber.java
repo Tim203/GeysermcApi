@@ -23,13 +23,18 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.geyser.api.event;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.geysermc.event.Event;
+import org.geysermc.event.subscribe.OwnedSubscriber;
+import org.geysermc.geyser.api.extension.Extension;
 
 /**
- * Represents a player connection used in Geyser.
+ * Represents a subscribed listener to a {@link Event}. Wraps around
+ * the event and is capable of unsubscribing from the event or give
+ * information about it.
+ *
+ * @param <T> the class of the event
  */
-public interface GeyserConnection extends Connection, CommandSource {
+public interface EventSubscriber<R extends EventRegistrar, T extends Event> extends OwnedSubscriber<R, T> {
 }
