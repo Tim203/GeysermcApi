@@ -23,13 +23,35 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.geyser.api.event.lifecycle;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.geysermc.event.Event;
+import org.geysermc.geyser.api.command.Command;
+
+import java.util.Map;
 
 /**
- * Represents a player connection used in Geyser.
+ * Called when commands are defined within Geyser.
+ *
+ * This event allows you to register new commands using the {@link #register(Command)}
+ * method and retrieve the default commands defined.
  */
-public interface GeyserConnection extends Connection, CommandSource {
+public interface GeyserDefineCommandsEvent extends Event {
+
+    /**
+     * Registers the given {@link Command} into the Geyser
+     * command manager.
+     *
+     * @param command the command to register
+     */
+    void register(@NonNull Command command);
+
+    /**
+     * Gets all the registered built-in {@link Command}s.
+     *
+     * @return all the registered built-in commands
+     */
+    @NonNull
+    Map<String, Command> commands();
 }

@@ -23,13 +23,51 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.api.util;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
-/**
- * Represents a player connection used in Geyser.
- */
-public interface GeyserConnection extends Connection, CommandSource {
+public enum BedrockPlatform {
+    UNKNOWN("Unknown"),
+    GOOGLE("Android"),
+    IOS("iOS"),
+    OSX("macOS"),
+    AMAZON("Amazon"),
+    GEARVR("Gear VR"),
+    HOLOLENS("Hololens"),
+    UWP("Windows 10"),
+    WIN32("Windows x86"),
+    DEDICATED("Dedicated"),
+    TVOS("Apple TV"),
+    PS4("PS4"),
+    NX("Switch"),
+    XBOX("Xbox One"),
+    WINDOWS_PHONE("Windows Phone");
+
+    private static final BedrockPlatform[] VALUES = values();
+
+    private final String displayName;
+
+    BedrockPlatform(String displayName) {
+        this.displayName = displayName;
+    }
+
+    /**
+     * Get the BedrockPlatform from the identifier.
+     *
+     * @param id the BedrockPlatform identifier
+     * @return The BedrockPlatform or {@link #UNKNOWN} if the platform wasn't found
+     */
+    @NonNull
+    public static BedrockPlatform fromId(int id) {
+        return id < VALUES.length ? VALUES[id] : VALUES[0];
+    }
+
+    /**
+     * @return friendly display name of platform.
+     */
+    @Override
+    public String toString() {
+        return displayName;
+    }
 }
