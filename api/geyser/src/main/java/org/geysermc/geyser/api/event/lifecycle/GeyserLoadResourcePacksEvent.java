@@ -23,13 +23,18 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.geyser.api.event.lifecycle;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.geysermc.event.Event;
+
+import java.nio.file.Path;
+import java.util.List;
 
 /**
- * Represents a player connection used in Geyser.
+ * Called when resource packs are loaded within Geyser.
+ *
+ * @param resourcePacks a mutable list of the currently listed resource packs
  */
-public interface GeyserConnection extends Connection, CommandSource {
+public record GeyserLoadResourcePacksEvent(@NonNull List<Path> resourcePacks) implements Event {
 }

@@ -23,13 +23,48 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.geyser.api.network;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Represents a player connection used in Geyser.
+ * Represents the Java server that Geyser is connecting to.
  */
-public interface GeyserConnection extends Connection, CommandSource {
+public interface RemoteServer {
+
+    /**
+     * Gets the IP address of the remote server.
+     *
+     * @return the IP address of the remote server
+     */
+    String address();
+
+    /**
+     * Gets the port of the remote server.
+     *
+     * @return the port of the remote server
+     */
+    int port();
+
+    /**
+     * Gets the protocol version of the remote server.
+     *
+     * @return the protocol version of the remote server
+     */
+    int protocolVersion();
+
+    /**
+     * Gets the Minecraft version of the remote server.
+     *
+     * @return the Minecraft version of the remote server
+     */
+    String minecraftVersion();
+
+    /**
+     * Gets the {@link AuthType} required by the remote server.
+     *
+     * @return the auth type required by the remote server
+     */
+    @NonNull
+    AuthType authType();
 }

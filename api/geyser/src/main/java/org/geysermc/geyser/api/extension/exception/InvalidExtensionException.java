@@ -23,13 +23,21 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
-
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+package org.geysermc.geyser.api.extension.exception;
 
 /**
- * Represents a player connection used in Geyser.
+ * Thrown when an extension is invalid.
  */
-public interface GeyserConnection extends Connection, CommandSource {
+public class InvalidExtensionException extends Exception {
+    public InvalidExtensionException(Throwable cause) {
+        super(cause);
+    }
+
+    public InvalidExtensionException(String message) {
+        super(message);
+    }
+
+    public InvalidExtensionException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

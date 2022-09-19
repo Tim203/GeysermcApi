@@ -23,13 +23,23 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.api.util;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
-/**
- * Represents a player connection used in Geyser.
- */
-public interface GeyserConnection extends Connection, CommandSource {
+public enum UiProfile {
+    CLASSIC, POCKET;
+
+    private static final UiProfile[] VALUES = values();
+
+    /**
+     * Get the UiProfile from the identifier.
+     *
+     * @param id the UiProfile identifier
+     * @return The UiProfile or {@link #CLASSIC} if the profile wasn't found
+     */
+    @NonNull
+    public static UiProfile fromId(int id) {
+        return VALUES.length > id ? VALUES[id] : VALUES[0];
+    }
 }

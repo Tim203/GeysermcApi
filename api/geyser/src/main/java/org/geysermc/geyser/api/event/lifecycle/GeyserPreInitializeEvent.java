@@ -23,13 +23,19 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.geyser.api.connection;
+package org.geysermc.geyser.api.event.lifecycle;
 
-import org.geysermc.api.connection.Connection;
-import org.geysermc.geyser.api.command.CommandSource;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.geysermc.event.Event;
+import org.geysermc.geyser.api.event.EventBus;
+import org.geysermc.geyser.api.event.EventRegistrar;
+import org.geysermc.geyser.api.extension.ExtensionManager;
 
 /**
- * Represents a player connection used in Geyser.
+ * Called when Geyser is starting to initialize.
+ *
+ * @param extensionManager the extension manager
+ * @param eventBus the event bus
  */
-public interface GeyserConnection extends Connection, CommandSource {
+public record GeyserPreInitializeEvent(@NonNull ExtensionManager extensionManager, @NonNull EventBus<EventRegistrar> eventBus) implements Event {
 }

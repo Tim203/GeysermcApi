@@ -23,46 +23,25 @@
  * @link https://github.com/GeyserMC/Geyser
  */
 
-package org.geysermc.api.session;
+package org.geysermc.geyser.api.event;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.common.value.qual.IntRange;
-
-import java.util.UUID;
+import org.geysermc.geyser.api.GeyserApi;
 
 /**
- * Represents a player connection.
+ * Represents an owner for an event that allows it
+ * to be registered through an {@link EventBus}.
  */
-@NonNull
-public interface Connection {
-    /**
-     * Gets the name of the connection.
-     *
-     * @return the name of the connection
-     */
-    String name();
+public interface EventRegistrar {
 
     /**
-     * Gets the {@link UUID} of the connection.
+     * Creates an {@link EventRegistrar} instance.
      *
-     * @return the UUID of the connection
+     * @param object the object to wrap around
+     * @return an event registrar instance
      */
-    UUID uuid();
-
-    /**
-     * Gets the XUID of the connection.
-     *
-     * @return the XUID of the connection
-     */
-    String xuid();
-
-    /**
-     * Transfer the connection to a server. A Bedrock player can successfully transfer to the same server they are
-     * currently playing on.
-     *
-     * @param address The address of the server
-     * @param port The port of the server
-     * @return true if the transfer was a success
-     */
-    boolean transfer(@NonNull String address, @IntRange(from = 0, to = 65535) int port);
+    @NonNull
+    static EventRegistrar of(@NonNull Object object) {
+        return GeyserApi.api().provider(EventRegistrar.class, object);
+    }
 }
